@@ -1,6 +1,7 @@
 var $ = require('jquery');
 
 var throttle = require('./utils/throttle.js');
+var requestAnimFrame = require('./utils/requestAnimFrame.js');
 
 module.exports = function (stickyElt, givenPosition, {
     unit = 'px',
@@ -14,7 +15,7 @@ module.exports = function (stickyElt, givenPosition, {
     var windowHeight = $(window).height(); 
     var windowWidth = window.outerWidth; 
     var scrollTop = $(document).scrollTop();
-    var wrapperSticky = stickyElt.closest('.wrapper-sticky');
+    var wrapperSticky = stickyElt.closest('.wrapper-collant');
 
 
     function checkWindowHeight(){
@@ -30,25 +31,25 @@ module.exports = function (stickyElt, givenPosition, {
     function scrollHandler(){
         scrollTop = $(document).scrollTop();        
 
-        if(updateHeightOnScroll && stickyElt.hasClass('sticky')){
+        if(updateHeightOnScroll && stickyElt.hasClass('collant')){
             stickyElt.data('height', stickyElt.outerHeight());
         }
 
         posTop = stickyElt.data('initialPos') === 'auto' ? 0 : parseFloat(stickyElt.data('initialPos'), 10);
          
         if(scrollTop >= stickyElt.data('offsetTop') - position + posTop){
-            stickyElt.addClass('sticky').css('top', position+'px');
+            stickyElt.addClass('collant').css('top', position+'px');
             if(scrollTop + position + stickyElt.data('height') >= stickyElt.data('offsetBottom')){
-                stickyElt.removeClass('sticky').addClass('sticky-stuck').css({'top': 'auto', 'bottom': '0'});
+                stickyElt.removeClass('collant').addClass('collant-stuck').css({'top': 'auto', 'bottom': '0'});
             }else{
-                stickyElt.addClass('sticky').removeClass('sticky-stuck').css({ 'top': position + 'px', 'bottom': '' });
+                stickyElt.addClass('collant').removeClass('collant-stuck').css({ 'top': position + 'px', 'bottom': '' });
             }
         }else{
-            stickyElt.removeClass('sticky').css('top', stickyElt.data('initialPos'));
+            stickyElt.removeClass('collant').css('top', stickyElt.data('initialPos'));
         }
 
         if (minimumWidth && belowWidth) {
-            stickyElt.removeClass('sticky sticky-stuck').css({ 'top': stickyElt.data('initialPos'), 'bottom': '' });
+            stickyElt.removeClass('collant collant-stuck').css({ 'top': stickyElt.data('initialPos'), 'bottom': '' });
         }
     }
 
@@ -65,7 +66,7 @@ module.exports = function (stickyElt, givenPosition, {
             });
         }else{
             stickyElt.data({
-                'offsetTop': stickyElt.offset().top,
+                'offsetTop': 0,
             });
         }
 
@@ -85,7 +86,7 @@ module.exports = function (stickyElt, givenPosition, {
         });
     }else{
         stickyElt.data({
-            'offsetTop': stickyElt.offset().top
+            'offsetTop': 0
         });
     }
 

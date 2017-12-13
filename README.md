@@ -22,6 +22,24 @@ You need put the class `wrapper-collant` on the container you want your element 
   </div>
 </div>
 ```
+
+If you ask for `wrapper: false` (see ***Arguments*** 👇), the class `wrapper-collant` is needed on the body.
+
+### CSS
+In order to work **collant** need some lines of CSS. Just paste them in your styles file.
+
+```css
+.wrapper-collant{
+    position: relative;
+}
+.collant{
+    position: fixed !important;
+}
+.collant-stuck{
+    position: absolute;
+}
+```
+
 ### JS  
 Import the package. Then call the function with your arguments.
 
