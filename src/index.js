@@ -1,5 +1,4 @@
 var $ = require('jquery');
-
 var throttle = require('./utils/throttle.js');
 var requestAnimFrame = require('./utils/requestAnimFrame.js');
 
@@ -10,7 +9,7 @@ module.exports = function (stickyElt, givenPosition, {
     minimumWidth = false
 } = {}) {
     if (!stickyElt.length) return;
-
+    
     var position, eltHeight, posTop, belowWidth;
     var windowHeight = $(window).height(); 
     var windowWidth = window.outerWidth; 

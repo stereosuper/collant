@@ -1,2 +1,7 @@
 node_modules/
-.DS_store
+
+.DS_Store
+*.DS_Store
+**/.DS_Store
+
+dist/**

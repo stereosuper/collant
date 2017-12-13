@@ -1,15 +1,15 @@
 {
   "name": "collant",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Another sticky package",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "author": {
     "name": "Clément Lemoine",
     "email": "clementlemoine.cl@gmail.com",
     "url": "http://www.clement-lemoine.fr/"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,13 @@
   "homepage": "https://github.com/stereosuper/collant#readme",
   "dependencies": {
     "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "path": "^0.12.7",
+    "webpack": "^3.10.0"
   }
 }
