@@ -96,6 +96,7 @@ module.exports = function (stickyElt, givenPosition, {
     });
 
     checkWindowHeight();
+    scrollHandler();
 
     
     $(document).on('scroll', throttle(function(){
