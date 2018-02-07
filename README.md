@@ -77,6 +77,10 @@ collant(element, offsetTop, options);
     Viewport width where the sticky effect is applied. If the viewport is below this width your element won't be stiky anymore 👋  
        default: `false`
        
+   + **bottom** _Boolean_  
+   If you want your sidebar to stick to the bottom instead of the top 
+       default: `false`
+       
    + *More to come*
    
 ### Example
