@@ -78,8 +78,8 @@ collant(element, offsetTop, options);
        default: `false`
        
    + **bottom** _Boolean_  
-   If you want your sidebar to stick to the bottom instead of the top 
-       default: `false`
+   If you want your sidebar to stick to the bottom instead of the top
+       default: `false`
        
    + *More to come*
    
