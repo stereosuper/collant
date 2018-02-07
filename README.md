@@ -70,7 +70,7 @@ collant(element, offsetTop, options);
       default: `false`
     
    + **wrapper** _Boolean_  
-   Whether you need or not  a `wrapper-collant`. If not you rsticky element will be sticked to the viewport.  
+   Whether you need or not  a `wrapper-collant`. If not your sticky element will be sticked to the viewport.  
       default: `true`  
     
    + **minimumWidth** _Number_  
@@ -78,7 +78,7 @@ collant(element, offsetTop, options);
        default: `false`
        
    + **bottom** _Boolean_  
-   If you want your sidebar to stick to the bottom instead of the top
+   If you want your sidebar to stick to the bottom instead of the top  
        default: `false`
        
    + *More to come*
