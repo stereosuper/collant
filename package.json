@@ -1,6 +1,6 @@
 {
   "name": "collant",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "Another sticky package",
   "main": "./dist/index.js",
   "author": {
@@ -20,9 +20,6 @@
     "url": "https://github.com/stereosuper/collant/issues"
   },
   "homepage": "https://github.com/stereosuper/collant#readme",
-  "dependencies": {
-    "jquery": "^3.2.1"
-  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

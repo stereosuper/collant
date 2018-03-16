@@ -1,6 +1,5 @@
-var $ = require('jquery');
-var throttle = require('./utils/throttle.js');
-var requestAnimFrame = require('./utils/requestAnimFrame.js');
+const throttle = require('./utils/throttle.js');
+const requestAnimFrame = require('./utils/requestAnimFrame.js');
 
 module.exports = function( stickyElt, givenPosition, {
     unit = 'px',
@@ -10,109 +9,114 @@ module.exports = function( stickyElt, givenPosition, {
     bottom = false
 } = {} ){
 
-    if( !stickyElt.length ) return;
+    if ( typeof stickyElt == 'undefined' || stickyElt == null ) return;
     
-    let position, eltHeight, posTop, belowWidth;
-    let windowHeight = $(window).height(); 
+    let position, eltHeight, posTop, belowWidth, offset;
+    let windowHeight = window.innerHeight; 
     let windowWidth = window.outerWidth; 
-    let scrollTop = $(document).scrollTop();
-    let wrapperSticky = stickyElt.closest('.wrapper-collant');
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    let wrapperSticky;
 
 
-    function checkWindowHeight(){
-        windowHeight = $(window).height();
-        windowWidth = window.outerWidth;
+    const checkWindowHeight = () => {
+        windowHeight = window.innerHeight; 
+        windowWidth = window.outerWidth; 
 
         if( unit === 'vh' ){
-            eltHeight = stickyElt.outerHeight();
+            eltHeight = stickyElt.offsetHeight;
             position = windowHeight / (100/givenPosition) - eltHeight/2;
         }else{
             position = givenPosition;
         }
     }
     
-    function scrollHandler(){
-        scrollTop = $(document).scrollTop();        
+    const scrollHandler = () => {
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;         
 
-        if( updateHeightOnScroll && stickyElt.hasClass('collant' )){
-            stickyElt.data('height', stickyElt.outerHeight());
-        }
+        if( updateHeightOnScroll && stickyElt.classList.contains('collant')) stickyElt.dataset.height = stickyElt.offsetHeight;
 
         if( bottom ){
 
-            if( scrollTop + windowHeight >= stickyElt.data('offsetBottom') + position ){
-                stickyElt.removeClass('collant').css('bottom', stickyElt.data('initialPos'));
+            if( scrollTop + windowHeight >= parseFloat(stickyElt.dataset.offsetBottom, 10) + position ){
+                stickyElt.classList.remove('collant');
+                stickyElt.style.bottom = parseFloat(stickyElt.dataset.initialPos, 10);
             }else{
-                stickyElt.addClass('collant').css('bottom', position+'px');
+                stickyElt.classList.add('collant');
+                stickyElt.style.bottom = position+'px';
             }
 
             if( minimumWidth && belowWidth ){
-                stickyElt.removeClass('collant collant-stuck').css({ 'top': '', 'bottom': stickyElt.data('initialPos') });
+                stickyElt.classList.remove('collant', 'collant-stuck');
+                stickyElt.style.top = '';
+                stickyElt.style.bottom = parseFloat(stickyElt.dataset.initialPos, 10);
             }
 
         }else{
 
-            posTop = stickyElt.data('initialPos') === 'auto' ? 0 : parseFloat( stickyElt.data('initialPos'), 10 );
+            posTop = stickyElt.dataset.initialPos === 'auto' ? 0 : parseFloat(stickyElt.dataset.initialPos, 10);
 
-            if( scrollTop >= stickyElt.data('offsetTop') - position + posTop ){
-                stickyElt.addClass('collant').css('top', position+'px');
 
-                if( scrollTop + position + stickyElt.data('height') >= stickyElt.data('offsetBottom') ){
-                    stickyElt.removeClass('collant').addClass('collant-stuck').css({'top': 'auto', 'bottom': '0'});
+            if( scrollTop >= parseFloat(stickyElt.dataset.offsetTop, 10) - position + posTop ){
+                stickyElt.classList.add('collant')
+                stickyElt.style.top = `${position}px`;
+                console.log(offset.top + scrollTop, offset.top, scrollTop)
+
+                if( scrollTop + position + parseFloat(stickyElt.dataset.height, 10) >= parseFloat(stickyElt.dataset.offsetBottom, 10) ){
+                    stickyElt.classList.remove('collant')
+                    stickyElt.classList.add('collant-stuck')
+                    stickyElt.style.top = 'auto';
+                    stickyElt.style.bottom = '0';
                 }else{
-                    stickyElt.addClass('collant').removeClass('collant-stuck').css({ 'top': position + 'px', 'bottom': '' });
+                    stickyElt.classList.add('collant')
+                    stickyElt.classList.remove('collant-stuck')
+                    stickyElt.style.top = `${position}px`;
+                    stickyElt.style.bottom = '';
                 }
             }else{
-                stickyElt.removeClass('collant').css('top', stickyElt.data('initialPos'));
+                stickyElt.classList.remove('collant');
+                stickyElt.style.top = parseFloat(stickyElt.dataset.initialPos, 10);
             }
 
             if( minimumWidth && belowWidth ){
-                stickyElt.removeClass('collant collant-stuck').css({ 'top': stickyElt.data('initialPos'), 'bottom': '' });
+                stickyElt.classList.remove('collant', 'collant-stuck')
+                stickyElt.style.top = parseFloat(stickyElt.dataset.initialPos, 10);
+                stickyElt.style.bottom = '';
             }
 
         }
     }
 
-    function setDatas(){
-        belowWidth = minimumWidth && windowWidth <= minimumWidth ? true : false;
+    const setDatas = () => {
+        offset = wrapperSticky.getBoundingClientRect();
+        belowWidth = minimumWidth && windowWidth <= minimumWidth;
 
-        if( wrapper ){
-            stickyElt.data({
-                'offsetTop': wrapperSticky.offset().top,
-            });
-        }else{
-            stickyElt.data({
-                'offsetTop': 0,
-            });
-        }
+        stickyElt.dataset.offsetTop = wrapper ? offset.top + scrollTop : 0;
 
-        stickyElt.data({
-            'offsetBottom': wrapperSticky.offset().top + wrapperSticky.outerHeight(),
-            'height': stickyElt.outerHeight()
-        });
+
+        stickyElt.dataset.offsetBottom = offset.top + scrollTop + wrapperSticky.offsetHeight;
+        stickyElt.dataset.height = stickyElt.offsetHeight;
     }
 
-    function resizeHandler(){
+    const resizeHandler = () => {
         checkWindowHeight();
         setDatas();
         scrollHandler();
     }
 
+    wrapperSticky = stickyElt.dataset.collant ? document.querySelector(`.wrapper-collant[data-collant="${stickyElt.dataset.collant}"]`) : document.querySelector(`.wrapper-collant`);
 
     setDatas();
-    stickyElt.data({
-        'initialPos': bottom ? stickyElt.css('bottom') : stickyElt.css('top')
-    });
+    stickyElt.dataset.initialPos = bottom ? getComputedStyle(stickyElt)['bottom'] : getComputedStyle(stickyElt)['top'];
 
     checkWindowHeight();
     scrollHandler();
 
     
-    $(document).on('scroll', throttle(function(){
+    document.addEventListener('scroll', throttle(function(){
         requestAnimFrame(scrollHandler);
-    }, 10));
+    }, 10), false);
 
-    $(window).on('resize', throttle(function(){
+    window.addEventListener('resize', throttle(function(){
         requestAnimFrame(resizeHandler);
     }, 10));
 }
