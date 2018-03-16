@@ -147,7 +147,6 @@ module.exports = function (stickyElt, givenPosition) {
             if (scrollTop >= parseFloat(stickyElt.dataset.offsetTop, 10) - position + posTop) {
                 stickyElt.classList.add('collant');
                 stickyElt.style.top = position + 'px';
-                console.log(offset.top + scrollTop, offset.top, scrollTop);
 
                 if (scrollTop + position + parseFloat(stickyElt.dataset.height, 10) >= parseFloat(stickyElt.dataset.offsetBottom, 10)) {
                     stickyElt.classList.remove('collant');
