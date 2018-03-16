@@ -2,13 +2,12 @@
 > ( prounouce *kɔlɑ̃* )  À la française  
 
 
-_(Another)_ Small package to stick your elements
+_(Another)_ Small package to stick your elements without jQuery (😈)
 
 ## Installation
 ```bash
 npm install --save collant
 ```
-For the moment **collant** depend of jQuery but will soon be free from it.
 
 ## Usage
 ### Markup
@@ -44,15 +43,16 @@ In order to work **collant** need some lines of CSS. Just paste them in your sty
 Import the package. Then call the function with your arguments.
 
 ```javascript
-import collant from 'collant';
+import * as collant from 'collant';
+const collant = require('collant');
 
 collant(element, offsetTop, options);
 ```
 
 ### Arguments
 
-+ **element** _jQuery element_  
-  The element you want to be sticky, can be an array of elements.
++ **element** _DOM element_  
+  The element you want to be sticky.
     
 + **offsetTop** _Number_  
   The offset between the top of your element and the top of the viewport. Value in pixel ( for viewport based value see ***options*** 👇 )
