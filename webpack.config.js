@@ -1,4 +1,5 @@
 const path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     entry: './src/index.js',
     target: 'node',
@@ -17,10 +18,13 @@ module.exports = {
             use: {
               loader: 'babel-loader',
               options: {
-                presets: ['es2015', 'stage-0']
+                presets: ['env', 'stage-0']
               }
             }
           }
         ]
-    }
+    },
+    plugins: [
+        new UglifyJSPlugin()
+    ]
 };
