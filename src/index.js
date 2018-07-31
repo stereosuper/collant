@@ -33,13 +33,16 @@ module.exports = function( stickyElt, givenPosition, {
     const scrollHandler = () => {
         scrollTop = window.pageYOffset || document.documentElement.scrollTop;         
 
+        console.log(scrollTop, 'lol');
+        
+
         if( updateHeightOnScroll && stickyElt.classList.contains('collant')) stickyElt.dataset.height = stickyElt.offsetHeight;
 
         if( bottom ){
 
             if( scrollTop + windowHeight >= parseFloat(stickyElt.dataset.offsetBottom, 10) + position ){
                 stickyElt.classList.remove('collant');
-                stickyElt.style.bottom = parseFloat(stickyElt.dataset.initialPos, 10);
+                stickyElt.style.bottom = parseFloat(stickyElt.dataset.initialPos, 10) + 'px';
             }else{
                 stickyElt.classList.add('collant');
                 stickyElt.style.bottom = position+'px';
@@ -48,7 +51,7 @@ module.exports = function( stickyElt, givenPosition, {
             if( minimumWidth && belowWidth ){
                 stickyElt.classList.remove('collant', 'collant-stuck');
                 stickyElt.style.top = '';
-                stickyElt.style.bottom = parseFloat(stickyElt.dataset.initialPos, 10);
+                stickyElt.style.bottom = parseFloat(stickyElt.dataset.initialPos, 10) + 'px';
             }
 
         }else{
@@ -73,12 +76,12 @@ module.exports = function( stickyElt, givenPosition, {
                 }
             }else{
                 stickyElt.classList.remove('collant');
-                stickyElt.style.top = parseFloat(stickyElt.dataset.initialPos, 10);
+                stickyElt.style.top = parseFloat(stickyElt.dataset.initialPos, 10) + 'px';
             }
 
             if( minimumWidth && belowWidth ){
                 stickyElt.classList.remove('collant', 'collant-stuck')
-                stickyElt.style.top = parseFloat(stickyElt.dataset.initialPos, 10);
+                stickyElt.style.top = parseFloat(stickyElt.dataset.initialPos, 10) + 'px';
                 stickyElt.style.bottom = '';
             }
 
