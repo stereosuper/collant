@@ -31,10 +31,7 @@ module.exports = function( stickyElt, givenPosition, {
     }
     
     const scrollHandler = () => {
-        scrollTop = window.pageYOffset || document.documentElement.scrollTop;         
-
-        console.log(scrollTop, 'lol');
-        
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;                 
 
         if( updateHeightOnScroll && stickyElt.classList.contains('collant')) stickyElt.dataset.height = stickyElt.offsetHeight;
 
