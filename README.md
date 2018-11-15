@@ -43,7 +43,7 @@ In order to work **collant** need some lines of CSS. Just paste them in your sty
 Import the package. Then call the function with your arguments.
 
 ```javascript
-import * as collant from 'collant';
+import collant from 'collant';
 const collant = require('collant');
 
 collant(element, offsetTop, options);
@@ -86,6 +86,7 @@ collant(element, offsetTop, options);
 ### Example
 ```javascript
   const el = document.querySelector('#sidebar');
+  
   collant(el, 15, {
     unit = 'vh',
     minimuWidth: 780,
