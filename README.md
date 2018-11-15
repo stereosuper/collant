@@ -85,7 +85,8 @@ collant(element, offsetTop, options);
    
 ### Example
 ```javascript
-  collant($('.sidebar'), 15, {
+  const el = document.querySelector('#sidebar');
+  collant(el, 15, {
     unit = 'vh',
     minimuWidth: 780,
   });
