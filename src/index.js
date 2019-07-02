@@ -13,14 +13,14 @@ module.exports = function( stickyElt, givenPosition, {
     
     let position, eltHeight, posTop, belowWidth, offset;
     let windowHeight = window.innerHeight; 
-    let windowWidth = window.outerWidth; 
+    let windowWidth = window.innerWidth; 
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     let wrapperSticky;
 
 
     const checkWindowHeight = () => {
         windowHeight = window.innerHeight; 
-        windowWidth = window.outerWidth; 
+        windowWidth = window.innerWidth; 
 
         if( unit === 'vh' ){
             eltHeight = stickyElt.offsetHeight;
